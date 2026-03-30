@@ -1,14 +1,15 @@
 package entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import entity.enums.ProjectStatus;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,10 +23,36 @@ public class Project {
 
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "owner_id")
-    private Account owner_Id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "user_id",
+            nullable = false,
+            foreignKey = @ForeignKey(name = "fk_project_user")
+    )
+    private Account user;
+
+    private String description;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    @Builder.Default
+    private ProjectStatus status = ProjectStatus.ACTIVE;
+
+
+    @Column(name= "sort_order")
+    @Builder.Default
+    private int sortOrder = 0;
+
+
+    @Builder.Default
+    private List<Task> tasks = new ArrayList<>();
+
 
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
+
+
 }
