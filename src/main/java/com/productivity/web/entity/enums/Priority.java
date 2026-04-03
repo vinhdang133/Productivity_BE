@@ -1,4 +1,4 @@
-package entity.enums;
+package com.productivity.web.entity.enums;
 
 public enum
 Priority {

@@ -1,6 +1,6 @@
-package entity;
+package com.productivity.web.entity;
 
-import entity.enums.SessionType;
+import com.productivity.web.entity.enums.SessionType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

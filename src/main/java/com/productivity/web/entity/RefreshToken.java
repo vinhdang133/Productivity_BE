@@ -1,4 +1,4 @@
-package entity;
+package com.productivity.web.entity;
 
 
 import jakarta.persistence.*;

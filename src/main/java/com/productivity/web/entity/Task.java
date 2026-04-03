@@ -1,18 +1,21 @@
-package entity;
+package com.productivity.web.entity;
 
 
-import entity.enums.Priority;
-import entity.enums.TaskStatus;
+import com.productivity.web.entity.enums.Priority;
+import com.productivity.web.entity.enums.TaskStatus;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "tasks")
@@ -21,6 +24,7 @@ public class Task {
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
 
@@ -74,7 +78,11 @@ public class Task {
     private List<Label> labels = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "task", fetch = FetchType.LAZY)
+    // ✅ List<FocusSession> — một task có nhiều session
+    @OneToMany(
+            mappedBy = "task",
+            fetch = FetchType.LAZY
+    )
     @Builder.Default
     private List<FocusSession> focusSessions = new ArrayList<>();
 

@@ -1,7 +1,7 @@
-package entity;
+package com.productivity.web.entity;
 
 
-import entity.enums.ProjectStatus;
+import com.productivity.web.entity.enums.ProjectStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -19,6 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Project {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     private String name;
@@ -44,6 +45,7 @@ public class Project {
     private int sortOrder = 0;
 
 
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default
     private List<Task> tasks = new ArrayList<>();
 
