@@ -36,11 +36,18 @@ public class FocusSession {
             foreignKey = @ForeignKey(name = "fk_focus_session_task")
     )
     private Task task;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "session_label_id",
+            foreignKey = @ForeignKey(name = "fk_focus_session_label")
+    )
+    private Label sessionLabel;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "session_type", length = 20)
     private SessionType sessionType = SessionType.FOCUS;
+
+
 
 
     @Column(name = "planned_duration_minutes", nullable = false)
