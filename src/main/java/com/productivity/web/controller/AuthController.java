@@ -1,6 +1,7 @@
 package com.productivity.web.controller;
 
 import com.productivity.web.dto.request.LoginRequest;
+import com.productivity.web.service.AuthenServiceInterface;
 import com.productivity.web.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,11 +16,10 @@ public class AuthController {
 
     private final JwtService jwtService;
 
+   private final AuthenServiceInterface authenServiceInterface;
+
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequest request) {
-
-        // TODO: validate user (DB)
-
-        return jwtService.generateToken(request.getUsername());
+    public String login(@RequestBody LoginRequest loginRequest) {
+        return authenServiceInterface.login(loginRequest);
     }
 }
