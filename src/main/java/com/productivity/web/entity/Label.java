@@ -46,6 +46,9 @@ public class Label {
     @Builder.Default
     private List<Task> tasks = new ArrayList<>();
 
+
+
+
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
