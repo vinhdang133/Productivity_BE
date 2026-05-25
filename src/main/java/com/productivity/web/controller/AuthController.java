@@ -1,6 +1,8 @@
 package com.productivity.web.controller;
 
 import com.productivity.web.dto.request.LoginRequest;
+import com.productivity.web.dto.request.RegisterRequest;
+import com.productivity.web.dto.response.RegisterResponse;
 import com.productivity.web.service.AuthenServiceInterface;
 import com.productivity.web.service.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +18,15 @@ public class AuthController {
 
     private final JwtService jwtService;
 
-   private final AuthenServiceInterface authenServiceInterface;
+    private final AuthenServiceInterface authenServiceInterface;
 
     @PostMapping("/login")
     public String login(@RequestBody LoginRequest loginRequest) {
         return authenServiceInterface.login(loginRequest);
+    }
+
+    @PostMapping("/register")
+    public RegisterResponse register(@RequestBody RegisterRequest registerRequest) {
+        return authenServiceInterface.register(registerRequest);
     }
 }

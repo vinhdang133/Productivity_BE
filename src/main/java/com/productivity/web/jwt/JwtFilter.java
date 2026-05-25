@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,6 +15,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -47,11 +51,26 @@ public class JwtFilter extends OncePerRequestFilter {
 
             if (jwtService.isValid(token, userDetails.getUsername())) {
 
+                // extract roles from token and convert to GrantedAuthority
+                List<String> roles = jwtService.extractRoles(token);
+                Collection<SimpleGrantedAuthority> authorities;
+                if (roles != null && !roles.isEmpty()) {
+                    authorities = roles.stream()
+                            .filter(r -> r != null && !r.isBlank())
+                            .map(r -> r.startsWith("ROLE_") ? r : "ROLE_" + r)
+                            .map(SimpleGrantedAuthority::new)
+                            .collect(Collectors.toList());
+                } else {
+                    authorities = userDetails.getAuthorities().stream()
+                            .map(a -> new SimpleGrantedAuthority(a.getAuthority()))
+                            .collect(Collectors.toList());
+                }
+
                 UsernamePasswordAuthenticationToken authToken =
                         new UsernamePasswordAuthenticationToken(
                                 userDetails,
                                 null,
-                                userDetails.getAuthorities()
+                                authorities
                         );
 
                 SecurityContextHolder.getContext()
