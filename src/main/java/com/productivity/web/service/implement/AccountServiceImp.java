@@ -2,15 +2,11 @@ package com.productivity.web.service.implement;
 
 
 import com.productivity.web.dto.request.ChangePasswordRequest;
-import com.productivity.web.dto.request.LoginRequest;
-import com.productivity.web.dto.request.RegisterRequest;
 import com.productivity.web.dto.request.UpdateAccountRequest;
 import com.productivity.web.dto.response.AccountResponse;
-import com.productivity.web.dto.response.RegisterResponse;
 import com.productivity.web.entity.Account;
 import com.productivity.web.repository.AccountRepository;
 import com.productivity.web.service.AccountServiceInterface;
-import com.productivity.web.service.AuthenServiceInterface;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,7 +15,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class AccountService implements  AccountServiceInterface {
+public class AccountServiceImp implements  AccountServiceInterface {
 
     private final AccountRepository accountRepository;
 
