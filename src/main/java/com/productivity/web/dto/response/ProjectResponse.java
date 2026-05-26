@@ -8,19 +8,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProjectReponse {
+public class ProjectResponse {
     private Long id;
     private String name;
     private String description;
     private ProjectStatus status;
     private int sortOrder;
-    private int taskCountl;
-    private LocalDate createdAt;
-    private LocalDate updatedAt;
+    private int taskCount;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
 }
