@@ -4,7 +4,7 @@ import com.productivity.web.dto.request.LoginRequest;
 import com.productivity.web.dto.request.RegisterRequest;
 import com.productivity.web.dto.response.RegisterResponse;
 import com.productivity.web.service.AuthenServiceInterface;
-import com.productivity.web.service.JwtService;
+import com.productivity.web.service.implement.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -1,9 +1,8 @@
-package com.productivity.web.service;
+package com.productivity.web.service.implement;
 
 import com.productivity.web.entity.Account;
 import com.productivity.web.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

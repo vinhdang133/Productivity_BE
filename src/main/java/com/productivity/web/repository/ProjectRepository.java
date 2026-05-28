@@ -14,7 +14,8 @@ import java.util.Optional;
 public interface ProjectRepository extends JpaRepository<Project,Long> {
     List<Project> getProjects();
     List<Project> findByUserAndStatus(Account user, ProjectStatus status);
-    Optional<Project> findByIdAndUser(Long id, Account user);    List<Project> findByUser(Account user);
+    Optional<Project> findByIdAndUser(Long id, Account user);
+    List<Project> findByUser(Account user);
 
     List<Project> findByStatus(ProjectStatus status);
 

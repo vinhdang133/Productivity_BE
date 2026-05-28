@@ -4,9 +4,7 @@ package com.productivity.web.entity;
 import com.productivity.web.entity.enums.Priority;
 import com.productivity.web.entity.enums.TaskStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -19,13 +17,14 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "tasks")
-
+@Getter
+@Setter
 public class Task {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
 
 
@@ -48,19 +47,8 @@ public class Task {
     )
     private Project project;
 
-    // Self-reference: task có thể là subtask của task khác
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(
-            name = "parent_task_id",
-            foreignKey = @ForeignKey(name = "fk_task_parent")
-    )
-    private Task parentTask;
 
-    @OneToMany(
-            mappedBy = "parentTask",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
-    )
+
     @Builder.Default
     private List<Task> subTasks = new ArrayList<>();
 

@@ -1,6 +1,6 @@
 package com.productivity.web.jwt;
 
-import com.productivity.web.service.JwtService;
+import com.productivity.web.service.implement.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
