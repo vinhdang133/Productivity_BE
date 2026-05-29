@@ -3,6 +3,7 @@ package com.productivity.web.repository;
 import com.productivity.web.entity.Account;
 import com.productivity.web.entity.Project;
 import com.productivity.web.entity.Task;
+import com.productivity.web.entity.enums.Priority;
 import com.productivity.web.entity.enums.TaskStatus;
 import org.apache.catalina.User;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -25,5 +26,5 @@ public interface TaskRepository extends JpaRepository<Task,Long> {
 
     List<Task> findByUserAndTitleContainingIgnoreCase(Account user, String keyword) ;
 
-
+    List<Task> findByUserAndPriority(Account user, Priority priority) ;
 }

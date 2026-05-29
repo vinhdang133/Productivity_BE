@@ -100,26 +100,54 @@ public class TaskServiceImp implements TaskIServiceInterface {
     @Override
     public void deleteTask(String email, Long taskId) {
 
+        Account user = findAccountByEmail(email);
+
+        Task task = findTaskByIdAndUser(taskId, user);
+        taskRepository.delete(task);
+
+
     }
 
     @Override
     public TaskResponse completeTask(String email, Long taskId) {
-        return null;
+        Account user = findAccountByEmail(email);
+
+        Task task = findTaskByIdAndUser(taskId, user);
+        task.markCompleted();
+        taskRepository.save(task);
+        return mapToTaskResponse(task);
     }
 
     @Override
     public TaskResponse reopenTask(String email, Long taskId) {
-        return null;
+        Account user = findAccountByEmail(email);
+
+        Task task = findTaskByIdAndUser(taskId, user);
+
+        task.reopen();
+        Task updatedTask = taskRepository.save(task);
+        return mapToTaskResponse(updatedTask);
     }
 
     @Override
     public List<TaskResponse> getMyTasksByStatus(String email, TaskStatus status) {
-        return List.of();
+        Account user = findAccountByEmail(email);
+
+        return taskRepository.findByUserAndStatus(user, status)
+                .stream()
+                .map(this::mapToTaskResponse)
+                .toList();
     }
 
     @Override
     public List<TaskResponse> getTasksByPriority(String email, Priority priority) {
-        return List.of();
+        Account user = findAccountByEmail(email);
+
+        List<Task> tasks = taskRepository.findByUserAndPriority(user, priority);
+
+        return tasks.stream()
+                .map(this::mapToTaskResponse)
+                .toList();
     }
 
     @Override
