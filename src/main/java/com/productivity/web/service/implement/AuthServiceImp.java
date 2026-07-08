@@ -7,7 +7,6 @@ import com.productivity.web.dto.response.RegisterResponse;
 import com.productivity.web.entity.Account;
 import com.productivity.web.repository.AccountRepository;
 import com.productivity.web.service.AuthenServiceInterface;
-import com.productivity.web.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;

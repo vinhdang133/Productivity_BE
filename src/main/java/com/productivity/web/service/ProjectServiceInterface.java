@@ -1,22 +1,23 @@
 package com.productivity.web.service;
 
+import com.productivity.web.dto.request.CreateProjectRequest;
 import com.productivity.web.dto.request.UpdateProjectRequest;
-import com.productivity.web.dto.response.ProjectReponse;
+import com.productivity.web.dto.response.ProjectResponse;
 
 import java.util.List;
 
 public interface ProjectServiceInterface {
 
     //CREATE
-    ProjectReponse createProject(Long userId, String name, String description);
+    ProjectResponse createProject(String email, CreateProjectRequest request);
 
     //READ
-    ProjectReponse getProjectById(Long id, String email);
-    List<ProjectReponse> getAllProjectsByUser(String email);
-    List<ProjectReponse> getProjecsByStatus(String email, String status);
+    ProjectResponse getProjectById(Long id, String email);
+    List<ProjectResponse> getAllProjectsByUser(String email);
+    List<ProjectResponse> getProjecsByStatus(String email, String status);
 
     //UPDATE
-    ProjectReponse updateProject(Long id, UpdateProjectRequest email);
+    ProjectResponse updateProject(Long id, String email, UpdateProjectRequest request);
 
     //Delete
     void deleteProject(Long id, String email);
