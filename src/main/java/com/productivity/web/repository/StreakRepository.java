@@ -20,10 +20,13 @@ public interface StreakRepository extends JpaRepository<Streak,Long> {
 
 
 
-    List<Streak> findByUserAndStatus(Account user, ProjectStatus status);
 
-    Optional<Streak> findByUserOrderByStreakDate(Account user, LocalDate streakDate);
-     boolean existsByUserAndStreakDate(Account user, LocalDate streakDate);
 
+    Optional<Streak> findByUserOrderByStreakDate(Account user);
+    Optional<Streak> findByUserAndStreakDate(
+            Account user,
+            LocalDate streakDate
+    );
+    List<Streak> findByUserOrderByStreakDateDesc(Account user);
 
 }

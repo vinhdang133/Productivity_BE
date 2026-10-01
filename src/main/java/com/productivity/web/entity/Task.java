@@ -48,22 +48,22 @@ public class Task {
     private Project project;
 
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "parent_task_id",
+            foreignKey = @ForeignKey(name = "fk_task_parent")
+    )
+    private Task parentTask;
 
+    @OneToMany(
+            mappedBy = "parentTask",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
     @Builder.Default
     private List<Task> subTasks = new ArrayList<>();
 
 
-    // Many-to-many với Label qua bảng task_labels
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "task_labels",
-            joinColumns        = @JoinColumn(name = "task_id"),
-            inverseJoinColumns = @JoinColumn(name = "label_id"),
-            foreignKey        = @ForeignKey(name = "fk_tl_task"),
-            inverseForeignKey = @ForeignKey(name = "fk_tl_label")
-    )
-    @Builder.Default
-    private List<Label> labels = new ArrayList<>();
 
 
     // ✅ List<FocusSession> — một task có nhiều session

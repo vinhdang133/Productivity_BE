@@ -1,19 +1,19 @@
 package com.productivity.web.entity;
 
+import com.productivity.web.entity.enums.SessionStatus;
 import com.productivity.web.entity.enums.SessionType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Builder
+@Table(name = "focus_sessions")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 public class FocusSession {
 
     @Id
@@ -44,7 +44,9 @@ public class FocusSession {
     private Label sessionLabel;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "session_type", length = 20)
+    @Column(name = "session_type", length = 20, nullable = false)
+    @Builder.Default
+
     private SessionType sessionType = SessionType.FOCUS;
 
 
@@ -63,13 +65,10 @@ public class FocusSession {
     @Column(name = "ended_at")              // null khi đang chạy
     private LocalDateTime endedAt;
 
-    @Column(name = "was_completed")
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
     @Builder.Default
-    private Boolean completed = false;
-
-    @Column(name = "was_interrupted")
-    @Builder.Default
-    private Boolean interrupted = false;
+    private SessionStatus status = SessionStatus.RUNNING;
 
     @Column(columnDefinition = "TEXT")
     private String notes;

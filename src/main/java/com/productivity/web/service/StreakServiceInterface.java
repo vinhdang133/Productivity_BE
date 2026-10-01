@@ -1,6 +1,8 @@
 package com.productivity.web.service;
 
 
+import com.productivity.web.dto.response.StreakResponse;
+import com.productivity.web.dto.response.StreakSummaryResponse;
 import com.productivity.web.entity.Account;
 
 public interface StreakServiceInterface {
@@ -8,5 +10,9 @@ public interface StreakServiceInterface {
 
     void recordFocusSession(Account user, int focusMinutes);
 
-    int getCurrentStreak(String email);
+    StreakResponse getCurrentStreak(String email);
+
+    StreakResponse getTodayStreak(String email);
+    StreakSummaryResponse getStreakSummary(String email);
+
 }

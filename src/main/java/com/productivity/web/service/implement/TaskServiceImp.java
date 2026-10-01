@@ -28,7 +28,7 @@ public class TaskServiceImp implements TaskIServiceInterface {
     private final TaskRepository taskRepository;
     private final AccountRepository accountRepository;
     private final ProjectRepository projectRepository;
-
+    private final StreakServiceImpl streakServiceImpl;
 
 
     @Override
@@ -115,6 +115,7 @@ public class TaskServiceImp implements TaskIServiceInterface {
         Task task = findTaskByIdAndUser(taskId, user);
         task.markCompleted();
         taskRepository.save(task);
+        streakServiceImpl.recordTaskCompleted(user);
         return mapToTaskResponse(task);
     }
 
