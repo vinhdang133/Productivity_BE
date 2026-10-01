@@ -23,6 +23,7 @@ public interface LabelRepository  extends JpaRepository<Label, Long> {
             String name
     );
 
+
     // Tìm Label thuộc user cụ thể
     Optional<Label> findByIdAndUser_Id(
             Long id,

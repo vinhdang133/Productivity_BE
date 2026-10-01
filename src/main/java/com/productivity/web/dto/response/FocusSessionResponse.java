@@ -1,5 +1,12 @@
 package com.productivity.web.dto.response;
 
+import com.productivity.web.entity.enums.SessionStatus;
+import com.productivity.web.entity.enums.SessionType;
+import lombok.Builder;
+import lombok.Data;
+
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 public class FocusSessionResponse {

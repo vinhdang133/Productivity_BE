@@ -18,9 +18,11 @@ import java.util.Optional;
 public class FocusSessionRequest {
 
     private Long taskId;
+
+    private Long sessionLabelId;
+
     @NotNull(message = "Session type is required")
     private SessionType sessionType;
-    private Label sessionLabel;
 
     @NotNull
     @Min(1)

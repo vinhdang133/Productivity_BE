@@ -24,6 +24,7 @@ public interface FocusSessionRepository extends JpaRepository<FocusSession, Long
             Account user,
             SessionStatus status
     );
+    List<FocusSession> findAllByUserOrderByStartedAtDesc(Account user);
 
 
 }
