@@ -30,6 +30,7 @@ public class SessionServiceImp  implements SessionServiceInterface {
     private final LabelRepository labelRepository;
     private final StreakRepository streakRepository;
 
+
     @Override
     public FocusSessionResponse startSession(String email, FocusSessionRequest request) {
         // 1. Find current user
@@ -131,6 +132,32 @@ public class SessionServiceImp  implements SessionServiceInterface {
         long actualDuration = java.time.Duration.between(startedAt, Endednow).toMinutes();
         focusSession.setActualDurationMinutes((int) actualDuration);
 
+        //Calculate total focus minutes for today then count to streaks
+        List<FocusSession> todaySessions = focusSessionRepository.findAllByUserAndStartedAtBetween(
+                account,
+                LocalDateTime.now().toLocalDate().atStartOfDay(),
+                LocalDateTime.now().toLocalDate().atTime(23, 59, 59)
+        );
+        int totalFocusMinutesToday = todaySessions.stream()
+                .mapToInt(FocusSession::getActualDurationMinutes)
+                .sum();
+
+        if (totalFocusMinutesToday > 5) {
+            streakRepository.findByUser(account).ifPresentOrElse(
+                    streak -> {
+                        streak.setCurrentStreak(streak.getCurrentStreak() + 1);
+                        streakRepository.save(streak);
+                    },
+                    () -> {
+                        streakRepository.save(
+                                com.productivity.web.entity.Streak.builder()
+                                        .user(account)
+                                        .currentStreak(1)
+                                        .build()
+                        );
+                    }
+            );
+        }
 
         focusSession.setStatus(SessionStatus.COMPLETED);
 

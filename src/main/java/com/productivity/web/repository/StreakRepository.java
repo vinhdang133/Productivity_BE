@@ -29,4 +29,5 @@ public interface StreakRepository extends JpaRepository<Streak,Long> {
     );
     List<Streak> findByUserOrderByStreakDateDesc(Account user);
 
+    Optional<Object> findByUser(Account account);
 }
